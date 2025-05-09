@@ -1,7 +1,7 @@
 using FishNet;
 using UnityEngine;
 
-namespace MainHub.Modules.SharedModule.Scripts
+namespace WelwiseSharedModule.Runtime.Scripts
 {
     public class ToCameraLooker : MonoBehaviour
     {

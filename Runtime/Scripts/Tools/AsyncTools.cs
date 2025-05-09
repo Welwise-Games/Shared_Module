@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 
-namespace MainHub.Modules.SharedModule.Scripts.Tools
+namespace WelwiseSharedModule.Runtime.Scripts.Tools
 {
     public static class AsyncTools
     {

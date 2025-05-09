@@ -5,9 +5,10 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.ResourceProviders;
+using WelwiseSharedModule.Runtime.Scripts.Observers;
 using Object = UnityEngine.Object;
 
-namespace MainHub.Modules.SharedModule.Scripts
+namespace WelwiseSharedModule.Runtime.Scripts
 {
     public static class AssetProvider
     {

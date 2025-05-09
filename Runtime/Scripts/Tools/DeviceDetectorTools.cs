@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace MainHub.Modules.SharedModule.Scripts.Tools
+namespace WelwiseSharedModule.Runtime.Scripts.Tools
 {
     public static class DeviceDetectorTools
     {

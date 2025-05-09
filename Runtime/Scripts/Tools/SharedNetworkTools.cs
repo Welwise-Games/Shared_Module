@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using FishNet;
 using FishNet.Connection;
-using UnityEngine;
 
-namespace MainHub.Modules.SharedModule.Scripts.Tools
+namespace WelwiseSharedModule.Runtime.Scripts.Tools
 {
     public static class SharedNetworkTools
     {

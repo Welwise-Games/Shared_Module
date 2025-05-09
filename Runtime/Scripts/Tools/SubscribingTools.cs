@@ -2,8 +2,9 @@ using System;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
+using WelwiseSharedModule.Runtime.Scripts.Observers;
 
-namespace MainHub.Modules.SharedModule.Scripts.Tools
+namespace WelwiseSharedModule.Runtime.Scripts.Tools
 {
     public static class SubscribingTools
     {
