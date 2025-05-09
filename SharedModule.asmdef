@@ -1,0 +1,21 @@
+{
+    "name": "SharedModule",
+    "rootNamespace": "",
+    "references": [
+        "UniTask",
+        "Unity.Addressables",
+        "Unity.ResourceManager",
+        "UniTask.Addressables",
+        "FishNet.Runtime",
+        "Unity.Localization"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
