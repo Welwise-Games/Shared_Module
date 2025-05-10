@@ -1,7 +1,4 @@
-namespace WelwiseSharedModule.Runtime.Scripts
+public class DataContainer<T>
 {
-    public class DataContainer<T>
-    {
-        public T Data { get; set; }
-    }
+    public T Data { get; set; }
 }

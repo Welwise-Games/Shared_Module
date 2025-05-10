@@ -1,4 +1,4 @@
-namespace WelwiseSharedModule.Runtime.Scripts.Interfaces
+namespace Interfaces
 {
     public interface IModifiable
     {

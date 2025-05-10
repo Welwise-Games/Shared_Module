@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace WelwiseSharedModule.Runtime.Scripts.UI
+namespace UI
 {
     public class Popup : MonoBehaviour
     {

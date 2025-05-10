@@ -1,38 +1,35 @@
 using FishNet;
 using UnityEngine;
 
-namespace WelwiseSharedModule.Runtime.Scripts
+public class ToCameraLooker : MonoBehaviour
 {
-    public class ToCameraLooker : MonoBehaviour
+    private Camera _mainCamera;
+
+    public void Construct(Camera mainCamera) => _mainCamera = mainCamera;
+
+    private void Update()
     {
-        private Camera _mainCamera;
-
-        public void Construct(Camera mainCamera) => _mainCamera = mainCamera;
-
-        private void Update()
-        {
-            if (!InstanceFinder.ClientManager.Started)
-                return;
+        if (!InstanceFinder.ClientManager.Started)
+            return;
             
-            if (!_mainCamera)
-            {
-                Debug.LogWarning("Main camera is not found!");
-                return;
-            }
-
-            LookAtCamera();
+        if (!_mainCamera)
+        {
+            Debug.LogWarning("Main camera is not found!");
+            return;
         }
 
-        private void LookAtCamera()
+        LookAtCamera();
+    }
+
+    private void LookAtCamera()
+    {
+        Vector3 directionToCamera = _mainCamera.transform.position - transform.position;
+
+        directionToCamera.y = 0;
+
+        if (directionToCamera != Vector3.zero)
         {
-            Vector3 directionToCamera = _mainCamera.transform.position - transform.position;
-
-            directionToCamera.y = 0;
-
-            if (directionToCamera != Vector3.zero)
-            {
-                transform.rotation = Quaternion.LookRotation(-directionToCamera);
-            }
+            transform.rotation = Quaternion.LookRotation(-directionToCamera);
         }
     }
 }

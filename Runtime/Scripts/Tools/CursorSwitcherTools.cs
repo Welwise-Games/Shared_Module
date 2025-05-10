@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace WelwiseSharedModule.Runtime.Scripts.Tools
+namespace Tools
 {
     public static class CursorSwitcherTools
     {

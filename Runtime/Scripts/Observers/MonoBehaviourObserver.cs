@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace WelwiseSharedModule.Runtime.Scripts.Observers
+namespace Observers
 {
     public class MonoBehaviourObserver : MonoBehaviour
     {

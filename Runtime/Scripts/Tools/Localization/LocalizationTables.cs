@@ -1,4 +1,4 @@
-namespace WelwiseSharedModule.Runtime.Scripts.Tools.Localization
+namespace Tools.Localization
 {
     public static class LocalizationTablesHolder
     {

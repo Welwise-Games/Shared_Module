@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace WelwiseSharedModule.Runtime.Scripts.Tools
+namespace Tools
 {
     public static class UITools
     {

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using FishNet;
 using FishNet.Connection;
 
-namespace WelwiseSharedModule.Runtime.Scripts.Tools
+namespace Tools
 {
     public static class SharedNetworkTools
     {

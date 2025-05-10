@@ -1,10 +1,10 @@
 using System;
+using Observers;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
-using WelwiseSharedModule.Runtime.Scripts.Observers;
 
-namespace WelwiseSharedModule.Runtime.Scripts.Tools
+namespace Tools
 {
     public static class SubscribingTools
     {

@@ -1,15 +1,16 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine.Localization.Settings;
 
-namespace WelwiseSharedModule.Runtime.Scripts.Tools.Localization
+namespace Tools.Localization
 {
     public static class LocalizationTools
     {
-        public static string GetLocalizedString(string tableName, string key)
-            => LocalizationSettings.StringDatabase.GetLocalizedString(tableName, key);
+        public static async UniTask<string> GetLocalizedStringAsync(string tableName, string key)
+            => await LocalizationSettings.StringDatabase.GetLocalizedStringAsync(tableName, key);
 
-        public static string GetLocalizedString(string tableName, string key, string n1 = null, string n2 = null)
+        public static async UniTask<string> GetLocalizedStringAsync(string tableName, string key, string n1 = null, string n2 = null)
         {
-            var localizedString = GetLocalizedString(tableName, key);
+            var localizedString = await GetLocalizedStringAsync(tableName, key);
 
             if (n1 != null)
                 localizedString = localizedString.Replace(LocalizationKeysHolder.FirstVariableName, n1);
