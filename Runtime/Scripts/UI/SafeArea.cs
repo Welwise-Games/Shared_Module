@@ -5,7 +5,7 @@ namespace UI
     public class SafeArea : MonoBehaviour
     {
         private void Awake() {
-            if (Application.isMobilePlatform || Application.isEditor)
+            if (Application.isMobilePlatform)
                 UpdateSafeArea();
         }
 

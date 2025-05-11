@@ -8,6 +8,7 @@ namespace UI
         public bool IsOpen { get; private set; }
         
         public event Action Opened, Closed;
+        public event Action<bool> ChangedOpenState;
 
         [SerializeField] private bool _isOpenOnStart;
 
@@ -55,6 +56,8 @@ namespace UI
                 Opened?.Invoke();
             else
                 Closed?.Invoke();
+            
+            ChangedOpenState?.Invoke(isOpen);
         }
     }
 }
