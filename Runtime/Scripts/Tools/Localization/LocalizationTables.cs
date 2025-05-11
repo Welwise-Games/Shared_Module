@@ -3,5 +3,6 @@ namespace Tools.Localization
     public static class LocalizationTablesHolder
     {
         public const string ShopPopup = "ShopPopup";
+        public const string Items = "Items";
     }
 }

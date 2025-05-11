@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6eafd284a0304534c8164433d522bc06
+guid: b5c168971a5052642b5ada15fe9f0006
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,76 +123,76 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Emotions_0
+      name: SharedUI_0
       rect:
         serializedVersion: 2
-        x: 16
-        y: 124
-        width: 389
-        height: 388
+        x: 8
+        y: 132
+        width: 112
+        height: 113
       alignment: 0
       pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 5, y: 5, z: 5, w: 5}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bc38864e31016144497b4f6abe77e8d1
-      internalID: 1391331763
+      spriteID: 1c05ee3ddfd09ab458cf201e24f1f366
+      internalID: -1879236557
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Emotions_1
+      name: SharedUI_1
       rect:
         serializedVersion: 2
-        x: 447
-        y: 271
-        width: 228
-        height: 229
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 873a43f8d4c55e645a3c3754c2b347ff
-      internalID: -997188152
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Emotions_2
-      rect:
-        serializedVersion: 2
-        x: 718
-        y: 394
+        x: 133
+        y: 135
         width: 110
         height: 110
       alignment: 0
       pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 5, y: 5, z: 5, w: 5}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 416b9dde79c3e4a4cbcb6907877a57b3
-      internalID: -245508297
+      spriteID: c8992b09c66fbae4dbdeb27db4d365b8
+      internalID: 601485666
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Emotions_3
+      name: SharedUI_2
       rect:
         serializedVersion: 2
-        x: 842
-        y: 396
-        width: 108
-        height: 108
+        x: 9
+        y: 14
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 5, y: 5, z: 5, w: 5}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d08c30a07d437de41b7d990768b6e300
+      internalID: 1181163373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SharedUI_3
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 79
+        width: 39
+        height: 39
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -200,50 +200,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 83fb596b883bd88409e6a2673cd574c3
-      internalID: 486775619
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Emotions_4
-      rect:
-        serializedVersion: 2
-        x: 719
-        y: 276
-        width: 108
-        height: 108
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7f4c0991d2e347743a426478da8ec930
-      internalID: -2034550076
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Emotions_5
-      rect:
-        serializedVersion: 2
-        x: 422
-        y: 107
-        width: 411
-        height: 121
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a51e038f50836ee43bbda7fd640b0cc2
-      internalID: 2005604606
+      spriteID: e9d03be2b416e1640980bf5c7ae636d0
+      internalID: -2074209662
       vertices: []
       indices: 
       edges: []
@@ -259,12 +217,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Emotions_0: 1391331763
-      Emotions_1: -997188152
-      Emotions_2: -245508297
-      Emotions_3: 486775619
-      Emotions_4: -2034550076
-      Emotions_5: 2005604606
+      SharedUI_0: -1879236557
+      SharedUI_1: 601485666
+      SharedUI_2: 1181163373
+      SharedUI_3: -2074209662
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
