@@ -7,6 +7,16 @@ namespace Tools
 {
     public static class CollectionTools
     {
+        public static bool CustomSequenceEqual<T>(this IReadOnlyList<T> list1, IReadOnlyList<T> list2, 
+            Func<T, T, bool> equalFunc)
+        {
+            if (list1.Count != list2.Count)
+                return false;
+            
+            return list1.All(list1Element => list2.Any(list2Element => equalFunc.Invoke(list1Element, list2Element))) &&
+                   list2.All(list2Element => list1.Any(list1Element => equalFunc.Invoke(list1Element, list2Element)));
+        }
+        
         public static List<T> ToList<T>() where T : Enum => Enum.GetValues(typeof(T)).Cast<T>().ToList();
 
         public static T SafeGet<T>(this List<T> list, int index) where T : class => index < 0 || index >= list.Count ? null : list[index];

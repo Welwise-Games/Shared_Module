@@ -4,10 +4,10 @@ using UnityEngine.EventSystems;
 
 namespace Observers
 {
-    public class EventDataObserver : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IBeginDragHandler, IDragHandler, IPointerEnterHandler
+    public class EventDataObserver : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IBeginDragHandler, IDragHandler, IPointerEnterHandler, IPointerExitHandler
     {
-        public event Action<PointerEventData> PointerDowned, PointerUped, BeganDrag, Draged, PointerEntered;
-        public event Action PointerDownedWithoutArgs, PointerUpedWithoutArgs, BeganDragWithoutArgs, DragedWithoutArgs, PointerEnteredWithoutArgs;
+        public event Action<PointerEventData> PointerDowned, PointerUped, BeganDrag, Draged, PointerEntered, PointerExited;
+        public event Action PointerDownedWithoutArgs, PointerUpedWithoutArgs, BeganDragWithoutArgs, DragedWithoutArgs, PointerEnteredWithoutArgs, PointerExitedWithoutArgs;
         public void OnPointerDown(PointerEventData eventData)
         {
             PointerDowned?.Invoke(eventData);
@@ -36,6 +36,12 @@ namespace Observers
         {
             PointerEntered?.Invoke(eventData);
             PointerEnteredWithoutArgs?.Invoke();
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            PointerExited?.Invoke(eventData);
+            PointerExitedWithoutArgs?.Invoke();
         }
     }
 }

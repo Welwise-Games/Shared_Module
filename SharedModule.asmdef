@@ -7,7 +7,9 @@
         "Unity.ResourceManager",
         "UniTask.Addressables",
         "FishNet.Runtime",
-        "Unity.Localization"
+        "Unity.Localization",
+        "Unity.TextMeshPro",
+        "DOTween.Modules"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
