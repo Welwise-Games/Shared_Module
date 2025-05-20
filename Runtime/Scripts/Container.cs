@@ -71,7 +71,7 @@ public class Container
 
         return _implementationsByHash.Values
             .OfType<Component>()
-            .Where(implementation => implementation).Select(implementation => implementation.gameObject)
+            .Where(implementation => implementation && implementation.gameObject.scene.isLoaded).Select(implementation => implementation.gameObject)
             .ToHashSet();
     }
 
