@@ -1,7 +1,6 @@
-using System.Text.RegularExpressions;
 using UnityEngine;
 
-namespace Tools
+namespace MainHub.Modules.WelwiseSharedModule.Runtime.Scripts.Tools
 {
     public static class StringTools
     {

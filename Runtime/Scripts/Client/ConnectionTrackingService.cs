@@ -1,13 +1,11 @@
 using System;
-
-using FishNet;
 using FishNet.Connection;
 using FishNet.Managing.Client;
 using FishNet.Transporting;
-using Tools;
-using UnityEngine;
+using MainHub.Modules.WelwiseSharedModule.Runtime.Scripts.Client.Tools;
+using MainHub.Modules.WelwiseSharedModule.Runtime.Scripts.Tools;
 
-namespace _mainHub.MainHub.Client.Scripts.Infrastructure.GameStateMachinePart
+namespace MainHub.Modules.WelwiseSharedModule.Runtime.Scripts.Client
 {
     public class ConnectionTrackingService
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace UI
+namespace MainHub.Modules.WelwiseSharedModule.Runtime.Scripts.Client.UI
 {
     public class SafeArea : MonoBehaviour
     {

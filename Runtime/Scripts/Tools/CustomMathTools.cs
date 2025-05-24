@@ -1,4 +1,4 @@
-﻿namespace Tools
+﻿namespace MainHub.Modules.WelwiseSharedModule.Runtime.Scripts.Tools
 {
     public static class CustomMathTools
     {

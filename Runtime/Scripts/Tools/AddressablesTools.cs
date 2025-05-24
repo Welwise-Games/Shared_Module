@@ -1,7 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using UnityEngine.AddressableAssets;
 
-namespace Tools
+namespace MainHub.Modules.WelwiseSharedModule.Runtime.Scripts.Tools
 {
     public static class AddressablesTools
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Random = UnityEngine.Random;
 
-namespace Tools
+namespace MainHub.Modules.WelwiseSharedModule.Runtime.Scripts.Tools
 {
     public static class CollectionTools
     {

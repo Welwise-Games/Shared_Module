@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using FishNet;
 using FishNet.Connection;
 
-namespace Tools
+namespace MainHub.Modules.WelwiseSharedModule.Runtime.Scripts.Client.Tools
 {
     public static class SharedNetworkTools
     {

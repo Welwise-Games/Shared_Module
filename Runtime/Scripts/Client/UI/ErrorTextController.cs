@@ -1,12 +1,11 @@
 ﻿using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
-using MainHub.Modules.EmotionsModule.Scripts.Animations.SettingEmotions;
+using MainHub.Modules.WelwiseSharedModule.Runtime.Scripts.Tools.Localization;
 using TMPro;
-using Tools.Localization;
 using UnityEngine;
 
-namespace MainHub.Modules.WelwiseSharedModule.Runtime.Scripts.UI
+namespace MainHub.Modules.WelwiseSharedModule.Runtime.Scripts.Client.UI
 {
     public class ErrorTextController
     {

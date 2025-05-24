@@ -1,4 +1,7 @@
-public class DataContainer<T>
+namespace MainHub.Modules.WelwiseSharedModule.Runtime.Scripts
 {
-    public T Data { get; set; }
+    public class DataContainer<T>
+    {
+        public T Data { get; set; }
+    }
 }

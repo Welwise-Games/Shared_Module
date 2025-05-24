@@ -1,8 +1,6 @@
-namespace Tools.Localization
+namespace MainHub.Modules.WelwiseSharedModule.Runtime.Scripts.Tools.Localization
 {
     public static class LocalizationTablesHolder
     {
-        public const string ShopPopup = "ShopPopup";
-        public const string Items = "Items";
     }
 }

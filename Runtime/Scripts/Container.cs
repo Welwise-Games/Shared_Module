@@ -3,172 +3,175 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Tools;
+using MainHub.Modules.WelwiseSharedModule.Runtime.Scripts.Tools;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-public class Container
+namespace MainHub.Modules.WelwiseSharedModule.Runtime.Scripts
 {
-    private readonly Dictionary<object, object> _implementationsByHash = new Dictionary<object, object>();
-    private readonly Dictionary<object, UniTask> _loadingImplementationsByHash = new Dictionary<object, UniTask>();
-    private readonly CancellationTokenSource _clearCancellationTokenSource;
-
-    public async UniTask<T> GetOrLoadAndRegisterObjectAsync<T>(string assetId, Func<T, UniTask> loaded = null,
-        Func<UniTask> notLoaded = null, bool shouldCreate = true, Transform parent = null,
-        bool shouldMakeDontDestroyOnLoad = false,
-        Vector3? position = null)
-        where T : Object
+    public class Container
     {
-        var single = await GetSingleByAssetIdAsync<T>(assetId);
-        var shouldLoad = !single || single is MonoBehaviour monoBehaviour && !monoBehaviour;
+        private readonly Dictionary<object, object> _implementationsByHash = new Dictionary<object, object>();
+        private readonly Dictionary<object, UniTask> _loadingImplementationsByHash = new Dictionary<object, UniTask>();
+        private readonly CancellationTokenSource _clearCancellationTokenSource;
 
-        if (!shouldLoad)
+        public async UniTask<T> GetOrLoadAndRegisterObjectAsync<T>(string assetId, Func<T, UniTask> loaded = null,
+            Func<UniTask> notLoaded = null, bool shouldCreate = true, Transform parent = null,
+            bool shouldMakeDontDestroyOnLoad = false,
+            Vector3? position = null)
+            where T : Object
         {
-            if (notLoaded != null)
-                await notLoaded.Invoke();
+            var single = await GetSingleByAssetIdAsync<T>(assetId);
+            var shouldLoad = !single || single is MonoBehaviour monoBehaviour && !monoBehaviour;
 
-            return shouldCreate
-                ? await GetSingleByAssetIdAsync<T>(assetId, position, parent)
-                : await GetSingleByAssetIdAsync<T>(assetId);
+            if (!shouldLoad)
+            {
+                if (notLoaded != null)
+                    await notLoaded.Invoke();
+
+                return shouldCreate
+                    ? await GetSingleByAssetIdAsync<T>(assetId, position, parent)
+                    : await GetSingleByAssetIdAsync<T>(assetId);
+            }
+
+            var task = LoadOrInstantiateObjectAsync<T>(assetId, shouldCreate, parent, position);
+
+            _loadingImplementationsByHash.Add(assetId, task);
+
+            var instance = await task;
+
+            if (Application.isEditor && !Application.isPlaying)
+            {
+                Object.DestroyImmediate(instance is Component component ? component.gameObject : instance);
+                return null;
+            }
+
+            if (!instance)
+                return null;
+
+            if (shouldCreate && shouldMakeDontDestroyOnLoad)
+                Object.DontDestroyOnLoad(instance);
+
+            if (loaded != null)
+                await loaded.Invoke(instance);
+
+            TryRegisteringSingleByAssetId(instance, assetId);
+            _loadingImplementationsByHash.Remove(assetId);
+
+            return instance;
         }
 
-        var task = LoadOrInstantiateObjectAsync<T>(assetId, shouldCreate, parent, position);
-
-        _loadingImplementationsByHash.Add(assetId, task);
-
-        var instance = await task;
-
-        if (Application.isEditor && !Application.isPlaying)
+        public async UniTask DestroyAndClearAllImplementationsAsync()
         {
-            Object.DestroyImmediate(instance is Component component ? component.gameObject : instance);
-            return null;
+            (await GetAllLoadedGameObjectsImplementationsAsync()).ForEach(Object.Destroy);
+            ClearAllImplementations();
         }
 
-        if (!instance)
-            return null;
+        private async UniTask<HashSet<GameObject>> GetAllLoadedGameObjectsImplementationsAsync()
+        {
+            await AsyncTools.WaitWhileWithoutSkippingFrame(() => _loadingImplementationsByHash.Count > 0);
 
-        if (shouldCreate && shouldMakeDontDestroyOnLoad)
-            Object.DontDestroyOnLoad(instance);
+            return _implementationsByHash.Values
+                .OfType<Component>()
+                .Where(implementation => implementation && implementation.gameObject.scene.isLoaded).Select(implementation => implementation.gameObject)
+                .ToHashSet();
+        }
 
-        if (loaded != null)
-            await loaded.Invoke(instance);
+        private void ClearAllImplementations()
+        {
+            _implementationsByHash.Clear();
+            _loadingImplementationsByHash.Clear();
+        }
 
-        TryRegisteringSingleByAssetId(instance, assetId);
-        _loadingImplementationsByHash.Remove(assetId);
+        public async UniTask<T> GetOrRegisterSingleByTypeAsync<T>(Func<UniTask<T>> implementation) where T : class =>
+            IsExistsByType<T>()
+                ? GetSingleByType<T>()
+                : RegisterAndGetSingleByType(await implementation.Invoke());
 
-        return instance;
-    }
+        public async UniTask<T> GetOrRegisterSingleByHashAsync<T>(object hash, Func<UniTask<T>> implementation)
+            where T : class =>
+            IsExistsByHash<T>(hash)
+                ? GetSingleByHash<T>(hash)
+                : RegisterAndGetSingleByHash(hash, await implementation.Invoke());
 
-    public async UniTask DestroyAndClearAllImplementationsAsync()
-    {
-        (await GetAllLoadedGameObjectsImplementationsAsync()).ForEach(Object.Destroy);
-        ClearAllImplementations();
-    }
+        public T GetOrRegisterSingleByHash<T>(object hash, Func<T> implementation) where T : class =>
+            IsExistsByHash<T>(hash)
+                ? GetSingleByHash<T>(hash)
+                : RegisterAndGetSingleByHash(hash, implementation.Invoke());
 
-    private async UniTask<HashSet<GameObject>> GetAllLoadedGameObjectsImplementationsAsync()
-    {
-        await AsyncTools.WaitWhileWithoutSkippingFrame(() => _loadingImplementationsByHash.Count > 0);
+        public T GetOrRegisterSingleByType<T>(Func<T> implementation) where T : class =>
+            IsExistsByType<T>()
+                ? GetSingleByType<T>()
+                : RegisterAndGetSingleByType(implementation.Invoke());
 
-        return _implementationsByHash.Values
-            .OfType<Component>()
-            .Where(implementation => implementation && implementation.gameObject.scene.isLoaded).Select(implementation => implementation.gameObject)
-            .ToHashSet();
-    }
+        public T RegisterAndGetSingleByType<T>(T implementation, Type type = null) =>
+            RegisterAndGetSingleByHash(type ?? typeof(T), implementation);
 
-    private void ClearAllImplementations()
-    {
-        _implementationsByHash.Clear();
-        _loadingImplementationsByHash.Clear();
-    }
+        public T RegisterAndGetSingleByHash<T>(object hash, T implementation)
+        {
+            _implementationsByHash.AddOrAppoint(hash, implementation);
+            return implementation;
+        }
 
-    public async UniTask<T> GetOrRegisterSingleByTypeAsync<T>(Func<UniTask<T>> implementation) where T : class =>
-        IsExistsByType<T>()
-            ? GetSingleByType<T>()
-            : RegisterAndGetSingleByType(await implementation.Invoke());
+        private void TryRegisteringSingleByAssetId<T>(T implementation, string assetId) =>
+            _implementationsByHash.AddOrAppoint(assetId, implementation);
 
-    public async UniTask<T> GetOrRegisterSingleByHashAsync<T>(object hash, Func<UniTask<T>> implementation)
-        where T : class =>
-        IsExistsByHash<T>(hash)
-            ? GetSingleByHash<T>(hash)
-            : RegisterAndGetSingleByHash(hash, await implementation.Invoke());
+        public async UniTask<bool> IsExistsByAssetIdAsync<T>(string assetId) where T : class
+        {
+            var result = await GetSingleByAssetIdAsync<T>(assetId);
+            return result != null;
+        }
 
-    public T GetOrRegisterSingleByHash<T>(object hash, Func<T> implementation) where T : class =>
-        IsExistsByHash<T>(hash)
-            ? GetSingleByHash<T>(hash)
-            : RegisterAndGetSingleByHash(hash, implementation.Invoke());
+        public bool IsExistsByType<T>(Type type = null) where T : class =>
+            GetSingleByType<T>(type ?? typeof(T)) != null;
 
-    public T GetOrRegisterSingleByType<T>(Func<T> implementation) where T : class =>
-        IsExistsByType<T>()
-            ? GetSingleByType<T>()
-            : RegisterAndGetSingleByType(implementation.Invoke());
+        public bool IsExistsByHash<T>(object hash) where T : class =>
+            GetSingleByHash<T>(hash) != null;
 
-    public T RegisterAndGetSingleByType<T>(T implementation, Type type = null) =>
-        RegisterAndGetSingleByHash(type ?? typeof(T), implementation);
+        public async UniTask<T> GetSingleByAssetIdAsync<T>(string assetId) where T : class
+        {
+            if (_loadingImplementationsByHash.ContainsKey(assetId))
+                await AsyncTools.WaitWhileWithoutSkippingFrame(() =>
+                    _loadingImplementationsByHash.ContainsKey(assetId));
 
-    public T RegisterAndGetSingleByHash<T>(object hash, T implementation)
-    {
-        _implementationsByHash.AddOrAppoint(hash, implementation);
-        return implementation;
-    }
+            _implementationsByHash.TryGetValue(assetId, out var single);
+            return single as T;
+        }
 
-    private void TryRegisteringSingleByAssetId<T>(T implementation, string assetId) =>
-        _implementationsByHash.AddOrAppoint(assetId, implementation);
+        public T GetSingleByHash<T>(object hash) where T : class
+        {
+            _implementationsByHash.TryGetValue(hash, out var single);
+            return single as T;
+        }
 
-    public async UniTask<bool> IsExistsByAssetIdAsync<T>(string assetId) where T : class
-    {
-        var result = await GetSingleByAssetIdAsync<T>(assetId);
-        return result != null;
-    }
+        public T GetSingleByType<T>(Type type = null) where T : class => GetSingleByHash<T>(type ?? typeof(T));
 
-    public bool IsExistsByType<T>(Type type = null) where T : class =>
-        GetSingleByType<T>(type ?? typeof(T)) != null;
+        public void RemoveSingle<T>() where T : class => _implementationsByHash.Remove(typeof(T));
 
-    public bool IsExistsByHash<T>(object hash) where T : class =>
-        GetSingleByHash<T>(hash) != null;
+        private async UniTask<T> GetSingleByAssetIdAsync<T>(string assetId, Vector3? position, Transform parent)
+            where T : Object
+        {
+            var single = await GetSingleByAssetIdAsync<T>(assetId);
 
-    public async UniTask<T> GetSingleByAssetIdAsync<T>(string assetId) where T : class
-    {
-        if (_loadingImplementationsByHash.ContainsKey(assetId))
-            await AsyncTools.WaitWhileWithoutSkippingFrame(() =>
-                _loadingImplementationsByHash.ContainsKey(assetId));
+            if (single is ScriptableObject)
+                return single;
 
-        _implementationsByHash.TryGetValue(assetId, out var single);
-        return single as T;
-    }
+            if (single is not Component component)
+                throw new ArgumentException("Single isn't Component");
 
-    public T GetSingleByHash<T>(object hash) where T : class
-    {
-        _implementationsByHash.TryGetValue(hash, out var single);
-        return single as T;
-    }
+            var transform = component.transform;
 
-    public T GetSingleByType<T>(Type type = null) where T : class => GetSingleByHash<T>(type ?? typeof(T));
+            if (position.HasValue)
+                transform.position = position.Value;
 
-    public void RemoveSingle<T>() where T : class => _implementationsByHash.Remove(typeof(T));
-
-    private async UniTask<T> GetSingleByAssetIdAsync<T>(string assetId, Vector3? position, Transform parent)
-        where T : Object
-    {
-        var single = await GetSingleByAssetIdAsync<T>(assetId);
-
-        if (single is ScriptableObject)
+            transform.SetParent(parent);
             return single;
+        }
 
-        if (single is not Component component)
-            throw new ArgumentException("Single isn't Component");
-
-        var transform = component.transform;
-
-        if (position.HasValue)
-            transform.position = position.Value;
-
-        transform.SetParent(parent);
-        return single;
+        private async UniTask<T> LoadOrInstantiateObjectAsync<T>(string assetId, bool shouldCreate, Transform parent,
+            Vector3? position) where T : Object =>
+            shouldCreate && (typeof(T).IsSubclassOf(typeof(Component)) || typeof(T) == typeof(GameObject))
+                ? await AssetProvider.InstantiateAsync<T>(assetId, position, parent: parent)
+                : await AssetProvider.LoadAsync<T>(assetId);
     }
-
-    private async UniTask<T> LoadOrInstantiateObjectAsync<T>(string assetId, bool shouldCreate, Transform parent,
-        Vector3? position) where T : Object =>
-        shouldCreate && (typeof(T).IsSubclassOf(typeof(Component)) || typeof(T) == typeof(GameObject))
-            ? await AssetProvider.InstantiateAsync<T>(assetId, position, parent: parent)
-            : await AssetProvider.LoadAsync<T>(assetId);
 }

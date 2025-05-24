@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Observers
+namespace MainHub.Modules.WelwiseSharedModule.Runtime.Scripts.Observers
 {
     public class DestroyObserver : MonoBehaviour
     {

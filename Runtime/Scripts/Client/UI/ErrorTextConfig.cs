@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace MainHub.Modules.EmotionsModule.Scripts.Animations.SettingEmotions
+namespace MainHub.Modules.WelwiseSharedModule.Runtime.Scripts.Client.UI
 {
     [Serializable]
     public class ErrorTextConfig

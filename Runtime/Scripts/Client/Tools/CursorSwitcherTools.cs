@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Tools
+namespace MainHub.Modules.WelwiseSharedModule.Runtime.Scripts.Client.Tools
 {
     public static class CursorSwitcherTools
     {
