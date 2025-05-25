@@ -1,4 +1,4 @@
-namespace MainHub.Modules.WelwiseSharedModule.Runtime.Scripts
+namespace WelwiseSharedModule.Runtime.Scripts
 {
     public class DataContainer<T>
     {

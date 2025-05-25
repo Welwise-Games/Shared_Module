@@ -1,11 +1,11 @@
 ﻿using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
-using MainHub.Modules.WelwiseSharedModule.Runtime.Scripts.Tools.Localization;
 using TMPro;
 using UnityEngine;
+using WelwiseSharedModule.Runtime.Scripts.Tools.Localization;
 
-namespace MainHub.Modules.WelwiseSharedModule.Runtime.Scripts.Client.UI
+namespace WelwiseSharedModule.Runtime.Scripts.Client.UI
 {
     public class ErrorTextController
     {

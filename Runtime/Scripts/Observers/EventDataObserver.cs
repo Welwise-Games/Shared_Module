@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace MainHub.Modules.WelwiseSharedModule.Runtime.Scripts.Observers
+namespace WelwiseSharedModule.Runtime.Scripts.Observers
 {
     public class EventDataObserver : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IBeginDragHandler, IDragHandler, IPointerEnterHandler, IPointerExitHandler
     {

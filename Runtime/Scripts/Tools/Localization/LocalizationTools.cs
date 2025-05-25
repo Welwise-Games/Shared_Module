@@ -1,7 +1,7 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine.Localization.Settings;
 
-namespace MainHub.Modules.WelwiseSharedModule.Runtime.Scripts.Tools.Localization
+namespace WelwiseSharedModule.Runtime.Scripts.Tools.Localization
 {
     public static class LocalizationTools
     {

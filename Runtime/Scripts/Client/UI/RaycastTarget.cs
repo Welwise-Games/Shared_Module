@@ -1,6 +1,6 @@
 ﻿using UnityEngine.UI;
 
-namespace MainHub.Modules.WelwiseSharedModule.Runtime.Scripts.Client.UI
+namespace WelwiseSharedModule.Runtime.Scripts.Client.UI
 {
     public class RaycastTarget : Graphic
     {

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using MainHub.Modules.WelwiseSharedModule.Runtime.Scripts.Tools;
 using UnityEngine;
+using WelwiseSharedModule.Runtime.Scripts.Tools;
 using Object = UnityEngine.Object;
 
-namespace MainHub.Modules.WelwiseSharedModule.Runtime.Scripts
+namespace WelwiseSharedModule.Runtime.Scripts
 {
     public class Container
     {
