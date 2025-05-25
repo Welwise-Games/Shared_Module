@@ -6,14 +6,14 @@ using WelwiseSharedModule.Runtime.Scripts.Client.Tools;
 
 namespace WelwiseSharedModule.Runtime.Scripts.Client
 {
-    public class ConnectionTrackingService
+    public class ClientsConnectionTrackingServiceForClient
     {
         public event Action<NetworkConnection> Disconnected, Connected;
         public event Action OwnerDisconnected, OwnerConnected;
         
         private readonly ClientManager _clientManager;
 
-        public ConnectionTrackingService(ClientManager clientManager)
+        public ClientsConnectionTrackingServiceForClient(ClientManager clientManager)
         {
             _clientManager = clientManager;
         }
