@@ -3,7 +3,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace MainHub.Modules.WelwiseSharedModule.Runtime.Scripts
+namespace WelwiseSharedModule.Runtime.Scripts
 {
     public class Timer
     {

@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using MainHub.Modules.WelwiseSharedModule.Runtime.Scripts.Tools;
 using UnityEngine;
+using WelwiseSharedModule.Runtime.Scripts.Tools;
 
-namespace MainHub.Modules.WelwiseSharedModule.Runtime.Scripts.Client.Animator
+namespace WelwiseSharedModule.Runtime.Scripts.Client.Animator
 {
     public class AnimatorStateReporter : StateMachineBehaviour
     {

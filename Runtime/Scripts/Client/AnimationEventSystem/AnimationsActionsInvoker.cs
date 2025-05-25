@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using MainHub.Modules.WelwiseSharedModule.Runtime.Scripts.Client.Animator;
-using MainHub.Modules.WelwiseSharedModule.Runtime.Scripts.Tools;
 using UnityEngine;
+using WelwiseSharedModule.Runtime.Scripts.Client.Animator;
+using WelwiseSharedModule.Runtime.Scripts.Tools;
 
-namespace MainHub.Modules.WelwiseSharedModule.Runtime.Scripts.Client.AnimationEventSystem
+namespace WelwiseSharedModule.Runtime.Scripts.Client.AnimationEventSystem
 {
     public class AnimationsActionsInvoker
     {

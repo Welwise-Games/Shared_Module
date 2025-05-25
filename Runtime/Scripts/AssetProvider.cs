@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
-using MainHub.Modules.WelwiseSharedModule.Runtime.Scripts.Observers;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.ResourceProviders;
+using WelwiseSharedModule.Runtime.Scripts.Observers;
 using Object = UnityEngine.Object;
 
-namespace MainHub.Modules.WelwiseSharedModule.Runtime.Scripts
+namespace WelwiseSharedModule.Runtime.Scripts
 {
     public static class AssetProvider
     {

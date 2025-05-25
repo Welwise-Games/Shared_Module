@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace MainHub.Modules.WelwiseSharedModule.Runtime.Scripts.Client.Animator
+namespace WelwiseSharedModule.Runtime.Scripts.Client.Animator
 {
     public class AnimatorStateObserver : MonoBehaviour, IAnimationStateReader
     {

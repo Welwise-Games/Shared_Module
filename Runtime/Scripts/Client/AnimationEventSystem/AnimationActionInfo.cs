@@ -1,6 +1,6 @@
 using System;
 
-namespace MainHub.Modules.WelwiseSharedModule.Runtime.Scripts.Client.AnimationEventSystem
+namespace WelwiseSharedModule.Runtime.Scripts.Client.AnimationEventSystem
 {
     public class AnimationActionInfo
     {

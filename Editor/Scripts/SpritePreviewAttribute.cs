@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace MainHub.Modules.WelwiseSharedModule.Editor.Scripts
+namespace WelwiseSharedModule.Editor.Scripts
 {
     public class SpritePreviewAttribute : PropertyAttribute
     {

@@ -2,10 +2,9 @@ using System;
 using FishNet.Connection;
 using FishNet.Managing.Client;
 using FishNet.Transporting;
-using MainHub.Modules.WelwiseSharedModule.Runtime.Scripts.Client.Tools;
-using MainHub.Modules.WelwiseSharedModule.Runtime.Scripts.Tools;
+using WelwiseSharedModule.Runtime.Scripts.Client.Tools;
 
-namespace MainHub.Modules.WelwiseSharedModule.Runtime.Scripts.Client
+namespace WelwiseSharedModule.Runtime.Scripts.Client
 {
     public class ConnectionTrackingService
     {
