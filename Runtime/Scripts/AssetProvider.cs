@@ -29,6 +29,8 @@ namespace WelwiseSharedModule.Runtime.Scripts
                 : Addressables.InstantiateAsync(assetId, shouldAppointParentAfterInstantiate ? null : parent);
 
             var instance = await handle;
+            
+            Addressables.Release(handle);
 
             if (!instance)
                 throw new NullReferenceException($"Asset as addressable with assetId {assetId} not found");
@@ -42,7 +44,7 @@ namespace WelwiseSharedModule.Runtime.Scripts
             var targetComponent = instance.GetComponent<T>(type, assetId);
 
             instance.GetOrAddComponent<DestroyObserver>().Destroyed
-                += () => Addressables.Release(handle);
+                += () => Addressables.ReleaseInstance(instance);
 
             if (shouldMakeDontDestroyOnLoad)
                 Object.DontDestroyOnLoad(targetComponent);
@@ -88,17 +90,19 @@ namespace WelwiseSharedModule.Runtime.Scripts
                         type ?? typeof(T),
                         assetId);
 
-                var handle = Addressables.LoadAssetAsync<T>(assetId).Task;
+                var handle = Addressables.LoadAssetAsync<T>(assetId);
 
-                var @object = await handle;
+                var @object = await handle.Task;
+                
+                Addressables.Release(handle);
 
-                if (@object == null)
+                if (!@object)
                     return null;
 
                 if (type == null || type.IsInstanceOfType(@object))
                     return @object;
 
-                if (!(@object is GameObject gameObject))
+                if (@object is not GameObject gameObject)
                 {
                     Debug.LogError($"Object with type {type} and assetId {assetId} isn't found");
                     return null;

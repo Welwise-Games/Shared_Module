@@ -16,7 +16,7 @@ namespace WelwiseSharedModule.Runtime.Scripts.Client
             
             if (!_mainCamera)
             {
-                Debug.LogWarning("Main camera is not found!");
+                //Debug.LogWarning("Main camera is not found!");
                 return;
             }
 
