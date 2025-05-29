@@ -30,8 +30,6 @@ namespace WelwiseSharedModule.Runtime.Scripts
 
             var instance = await handle;
             
-            Addressables.Release(handle);
-
             if (!instance)
                 throw new NullReferenceException($"Asset as addressable with assetId {assetId} not found");
             
@@ -94,7 +92,7 @@ namespace WelwiseSharedModule.Runtime.Scripts
 
                 var @object = await handle.Task;
                 
-                Addressables.Release(handle);
+                //Addressables.Release(handle);
 
                 if (!@object)
                     return null;
