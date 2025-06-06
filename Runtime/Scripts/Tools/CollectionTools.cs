@@ -31,12 +31,6 @@ namespace WelwiseSharedModule.Runtime.Scripts.Tools
             return item;
         }
 
-        public static TValue TryGetValueOrDefault<TKey, TValue>(this IReadOnlyDictionary<TKey, TValue> dictionary, TKey key)
-        {
-            dictionary.TryGetValue(key, out var value);
-            return value;
-        }
-
         public static void RemoveAll<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, Func<KeyValuePair<TKey, TValue>, bool> func) => dictionary.Where(func.Invoke).ForEach(pair => dictionary.Remove(pair.Key));
 
         public static Dictionary<TKey, TValue> ToDictionary<TKey, TValue>(this IReadOnlyDictionary<TKey, TValue> readOnlyDictionary) 

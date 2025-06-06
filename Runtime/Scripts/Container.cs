@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using WelwiseSharedModule.Runtime.Scripts.Tools;
@@ -12,11 +13,11 @@ namespace WelwiseSharedModule.Runtime.Scripts
     public class Container
     {
         private readonly Dictionary<object, object> _implementationsByHash = new Dictionary<object, object>();
-        private readonly Dictionary<object, UniTask> _loadingImplementationsByHash = new Dictionary<object, UniTask>();
+        private readonly Dictionary<object, Task> _loadingImplementationsByHash = new Dictionary<object, Task>();
         private readonly CancellationTokenSource _clearCancellationTokenSource;
 
-        public async UniTask<T> GetOrLoadAndRegisterObjectAsync<T>(string assetId, Func<T, UniTask> loaded = null,
-            Func<UniTask> notLoaded = null, bool shouldCreate = true, Transform parent = null,
+        public async Task<T> GetOrLoadAndRegisterObjectAsync<T>(string assetId, Func<T, Task> loaded = null,
+            Func<Task> notLoaded = null, bool shouldCreate = true, Transform parent = null,
             bool shouldMakeDontDestroyOnLoad = false,
             Vector3? position = null)
             where T : Object
@@ -73,7 +74,8 @@ namespace WelwiseSharedModule.Runtime.Scripts
 
             return _implementationsByHash.Values
                 .OfType<Component>()
-                .Where(implementation => implementation && implementation.gameObject.scene.isLoaded).Select(implementation => implementation.gameObject)
+                .Where(implementation => implementation && implementation.gameObject.scene.isLoaded)
+                .Select(implementation => implementation.gameObject)
                 .ToHashSet();
         }
 
@@ -148,7 +150,7 @@ namespace WelwiseSharedModule.Runtime.Scripts
 
         public void RemoveSingle<T>() where T : class => _implementationsByHash.Remove(typeof(T));
 
-        private async UniTask<T> GetSingleByAssetIdAsync<T>(string assetId, Vector3? position, Transform parent)
+        private async Task<T> GetSingleByAssetIdAsync<T>(string assetId, Vector3? position, Transform parent)
             where T : Object
         {
             var single = await GetSingleByAssetIdAsync<T>(assetId);
@@ -168,7 +170,7 @@ namespace WelwiseSharedModule.Runtime.Scripts
             return single;
         }
 
-        private async UniTask<T> LoadOrInstantiateObjectAsync<T>(string assetId, bool shouldCreate, Transform parent,
+        private async Task<T> LoadOrInstantiateObjectAsync<T>(string assetId, bool shouldCreate, Transform parent,
             Vector3? position) where T : Object =>
             shouldCreate && (typeof(T).IsSubclassOf(typeof(Component)) || typeof(T) == typeof(GameObject))
                 ? await AssetProvider.InstantiateAsync<T>(assetId, position, parent: parent)

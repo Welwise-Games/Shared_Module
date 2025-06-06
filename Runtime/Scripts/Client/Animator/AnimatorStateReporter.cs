@@ -7,7 +7,7 @@ namespace WelwiseSharedModule.Runtime.Scripts.Client.Animator
 {
     public class AnimatorStateReporter : StateMachineBehaviour
     {
-        private List<IExitedAnimatorStateReader> _exitedStateReaders;
+        private List<IExitedAnimatorStateReader>  _exitedStateReaders;
 
         private bool _isInvokedEndedState;
 
@@ -16,6 +16,7 @@ namespace WelwiseSharedModule.Runtime.Scripts.Client.Animator
             base.OnStateEnter(animator, stateInfo, layerIndex);
             FindReaders(animator);
 
+            _isInvokedEndedState = false;
             _exitedStateReaders.OfType<IAnimationStateReader>().ForEach(reader => reader.OnEnterState(stateInfo.shortNameHash));
         }
 
@@ -32,8 +33,8 @@ namespace WelwiseSharedModule.Runtime.Scripts.Client.Animator
             base.OnStateUpdate(animator, stateInfo, layerIndex);
 
             _exitedStateReaders.OfType<IAnimationStateReader>().ForEach(reader => reader.OnUpdateState(stateInfo));
-
-            if (!(stateInfo.normalizedTime >= 1) || _isInvokedEndedState) return;
+            
+            if (stateInfo.normalizedTime < 1 || _isInvokedEndedState) return;
 
             _exitedStateReaders.ForEach(reader => reader.OnEndState(stateInfo.shortNameHash));
             _isInvokedEndedState = true;
@@ -41,7 +42,7 @@ namespace WelwiseSharedModule.Runtime.Scripts.Client.Animator
 
         private void FindReaders(UnityEngine.Animator animator)
         {
-            if (_exitedStateReaders != null)
+            if (_exitedStateReaders != null && _exitedStateReaders.All(reader => reader != null))
                 return;
 
             _exitedStateReaders = animator.transform.GetComponents<IExitedAnimatorStateReader>().ToList();

@@ -2,7 +2,7 @@
 using FishNet.Connection;
 using FishNet.Transporting;
 
-namespace MainHub.Server.Scripts.Infrastructure.Services
+namespace WelwiseSharedModule.Runtime.Scripts.Server
 {
     public class ClientsConnectionTrackingServiceForServer
     {

@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ namespace WelwiseSharedModule.Runtime.Scripts.Tools
     public static class ContainerTools
     {
         public static async UniTask<TController> GetControllerAsync<TController, TView>(this Container container,
-            string viewAssetId, Func<TView, UniTask> created,
+            string viewAssetId, Func<TView, Task> created,
             bool shouldMakeDontDestroyOnLoad = false, Transform parent = null)
             where TView : MonoBehaviour where TController : class
         {
