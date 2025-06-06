@@ -8,7 +8,7 @@ namespace WelwiseSharedModule.Runtime.Shared.Scripts.Tools
     public static class ContainerTools
     {
         public static async UniTask<TController> GetControllerAsync<TController, TView>(this Container container,
-            string viewAssetId, Func<TView, Task> created,
+            string viewAssetId, Func<TView, UniTask> created,
             bool shouldMakeDontDestroyOnLoad = false, Transform parent = null)
             where TView : MonoBehaviour where TController : class
         {
