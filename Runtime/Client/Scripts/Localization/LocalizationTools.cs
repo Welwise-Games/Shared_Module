@@ -6,7 +6,7 @@ namespace WelwiseSharedModule.Runtime.Client.Scripts.Localization
     public static class LocalizationTools
     {
         public static async UniTask<string> GetLocalizedStringAsync(string tableName, string key)
-            => await LocalizationSettings.StringDatabase.GetLocalizedStringAsync(tableName, key);
+            => await LocalizationSettings.StringDatabase.GetLocalizedStringAsync(tableName, key).Task;
 
         public static async UniTask<string> GetLocalizedStringAsync(string tableName, string key, string n1 = null, string n2 = null)
         {

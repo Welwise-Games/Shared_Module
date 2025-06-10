@@ -1,18 +1,13 @@
 {
-    "name": "WelwiseSharedServerModule",
+    "name": "WelwiseSharedClientUIModule",
     "rootNamespace": "",
     "references": [
-        "WelwiseSharedSharedModule",
-        "FishNet.Runtime"
+        "DOTween.Modules",
+        "WelwiseSharedClientUnityLocalizationModule",
+        "Unity.TextMeshPro",
+        "UniTask"
     ],
-    "includePlatforms": [
-        "Editor",
-        "LinuxStandalone64",
-        "CloudRendering",
-        "WSA",
-        "WebGL",
-        "WindowsStandalone64"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

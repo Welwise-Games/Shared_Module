@@ -2,15 +2,11 @@
     "name": "WelwiseSharedClientModule",
     "rootNamespace": "",
     "references": [
-        "GUID:f51ebe6a0ceec4240a699833d6309b23",
-        "GUID:9e24947de15b9834991c9d8411ea37cf",
-        "GUID:84651a3751eca9349aac36a66bba901b",
-        "GUID:593a5b492d29ac6448b1ebf7f035ef33",
-        "GUID:7c88a4a7926ee5145ad2dfa06f454c67",
-        "GUID:eec0964c48f6f4e40bc3ec2257ccf8c5",
-        "GUID:6055be8ebefd69e48b49212b09b47b2f",
-        "GUID:0dacaa324f3b4b84e99f314dc19e77fa",
-        "GUID:5c6184cbae34e72478e19ee3a10e88f0"
+        "UniTask",
+        "Unity.Addressables",
+        "Unity.ResourceManager",
+        "UniTask.Addressables",
+        "WelwiseSharedSharedModule"
     ],
     "includePlatforms": [
         "Editor",
