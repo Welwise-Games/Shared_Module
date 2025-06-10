@@ -8,7 +8,9 @@
         "WelwiseSharedClientModule",
         "Unity.ResourceManager"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "XboxOne"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

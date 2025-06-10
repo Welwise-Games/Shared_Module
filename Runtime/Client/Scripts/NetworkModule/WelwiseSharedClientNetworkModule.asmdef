@@ -4,7 +4,9 @@
     "references": [
         "FishNet.Runtime"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "XboxOne"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
