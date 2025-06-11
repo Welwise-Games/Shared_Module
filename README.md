@@ -1,7 +1,7 @@
 Общий модуль для всех модулей WelwiseGames
 
 Установка: 
-Установите пакеты по пути Package Manager -> Add package from git URL -> Вставить по очереди ссылки ниже:
+Скачайте пакеты по пути Package Manager -> Add package from git URL -> Вставить по очереди ссылки ниже:
 
 1. https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask
 2. https://github.com/Welwise-Games/Shared_Module.git
