@@ -5,14 +5,17 @@
         "FishNet.Runtime"
     ],
     "includePlatforms": [
-        "XboxOne"
+        "Editor",
+        "WebGL"
     ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
-    "defineConstraints": [],
+    "defineConstraints": [
+        "WELWISE_SHARED_MODULE_CLIENT_NETWORK"
+    ],
     "versionDefines": [],
     "noEngineReferences": false
 }

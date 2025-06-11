@@ -8,14 +8,17 @@
         "UniTask"
     ],
     "includePlatforms": [
-        "XboxOne"
+        "Editor",
+        "WebGL"
     ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
-    "defineConstraints": [],
+    "defineConstraints": [
+        "WELWISE_SHARED_MODULE_UI"
+    ],
     "versionDefines": [],
     "noEngineReferences": false
 }
