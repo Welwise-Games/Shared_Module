@@ -39,7 +39,7 @@ namespace WelwiseSharedModule.Runtime.Shared.Scripts
 
         #region Start
 
-        public static async UniTaskVoid TryStartingCountingTime(float time, Action ended, bool isTimeScaled = false,
+        public static async UniTask TryStartingCountingTime(float time, Action ended, bool isTimeScaled = false,
             CancellationToken token = default)
         {
             await UniTask.Delay(TimeSpan.FromSeconds(time), isTimeScaled, PlayerLoopTiming.Update, token);

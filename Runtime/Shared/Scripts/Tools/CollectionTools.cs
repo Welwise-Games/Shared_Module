@@ -16,7 +16,10 @@ namespace WelwiseSharedModule.Runtime.Shared.Scripts.Tools
             return list1.All(list1Element => list2.Any(list2Element => equalFunc.Invoke(list1Element, list2Element))) &&
                    list2.All(list2Element => list1.Any(list1Element => equalFunc.Invoke(list1Element, list2Element)));
         }
-        
+
+        public static T GetRandomOrDefault<T>(this IEnumerable<T> enumerable) =>
+            enumerable.ElementAtOrDefault(Random.Range(0, enumerable.Count()));
+
         public static List<T> ToList<T>() where T : Enum => Enum.GetValues(typeof(T)).Cast<T>().ToList();
 
         public static T SafeGet<T>(this List<T> list, int index) where T : class => index < 0 || index >= list.Count ? null : list[index];

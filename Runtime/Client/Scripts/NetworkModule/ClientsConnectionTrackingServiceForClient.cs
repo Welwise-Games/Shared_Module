@@ -2,6 +2,7 @@ using System;
 using FishNet.Connection;
 using FishNet.Managing.Client;
 using FishNet.Transporting;
+using UnityEngine;
 using WelwiseSharedModule.Runtime.Client.Scripts.Tools;
 
 namespace WelwiseSharedModule.Runtime.Client.Scripts
