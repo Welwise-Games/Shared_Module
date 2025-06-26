@@ -8,7 +8,8 @@ namespace WelwiseSharedModule.Runtime.Client.Scripts
     {
         private readonly Container _container = new Container();
 
-        public async UniTask<Camera> GetMainCameraAsync() => 
-            await _container.GetOrLoadAndRegisterObjectAsync<Camera>("MainCamera", shouldMakeDontDestroyOnLoad: true);
+        public async UniTask<Camera> GetMainCameraAsync() =>
+            await _container.GetOrLoadAndRegisterObjectAsync<Camera>("MainCamera",
+                shouldMakeDontDestroyOnLoad: true);
     }
 }

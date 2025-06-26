@@ -10,10 +10,6 @@ namespace WelwiseSharedModule.Runtime.Client.Scripts
 
         private void Update()
         {
-#if UNITY_SERVER
-            return;
-#endif
-
             if (!_mainCamera)
             {
                 //Debug.LogWarning("Main camera is not found!");

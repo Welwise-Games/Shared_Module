@@ -24,6 +24,7 @@ namespace WelwiseSharedModule.Runtime.Shared.Scripts
             where T : Object
         {
             var single = await GetSingleByAssetIdAsync<T>(assetId);
+            
             var shouldLoad = !single || single is MonoBehaviour monoBehaviour && !monoBehaviour;
 
             if (!shouldLoad)
@@ -37,11 +38,11 @@ namespace WelwiseSharedModule.Runtime.Shared.Scripts
             }
 
             var task = LoadOrInstantiateObjectAsync<T>(assetId, shouldCreate, parent, position);
-
+            
             _loadingImplementationsByHash.Add(assetId, task);
-
+            
             var instance = await task;
-
+            
             if (Application.isEditor && !Application.isPlaying)
             {
                 Object.DestroyImmediate(instance is Component component ? component.gameObject : instance);
@@ -53,13 +54,13 @@ namespace WelwiseSharedModule.Runtime.Shared.Scripts
 
             if (shouldCreate && shouldMakeDontDestroyOnLoad)
                 Object.DontDestroyOnLoad(instance);
-
+            
             if (loaded != null)
                 await loaded.Invoke(instance);
 
             TryRegisteringSingleByAssetId(instance, assetId);
             _loadingImplementationsByHash.Remove(assetId);
-
+            
             return instance;
         }
 

@@ -5,7 +5,8 @@
         "DOTween.Modules",
         "WelwiseSharedClientUnityLocalizationModule",
         "Unity.TextMeshPro",
-        "UniTask"
+        "UniTask",
+        "WelwiseSharedSharedModule"
     ],
     "includePlatforms": [
         "Editor",
