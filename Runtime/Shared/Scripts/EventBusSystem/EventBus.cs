@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace MainHub.UnityShared.Scripts.Systems.EventBusSystem
+namespace WelwiseSharedModule.Runtime.Shared.Scripts.EventBusSystem
 {
     public sealed class EventBus
     {

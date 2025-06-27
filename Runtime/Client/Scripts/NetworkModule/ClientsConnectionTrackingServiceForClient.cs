@@ -2,10 +2,8 @@ using System;
 using FishNet.Connection;
 using FishNet.Managing.Client;
 using FishNet.Transporting;
-using UnityEngine;
-using WelwiseSharedModule.Runtime.Client.Scripts.Tools;
 
-namespace WelwiseSharedModule.Runtime.Client.Scripts
+namespace Modules.WelwiseSharedModule.Runtime.Client.Scripts.NetworkModule
 {
     public class ClientsConnectionTrackingServiceForClient
     {

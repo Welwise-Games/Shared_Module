@@ -10,11 +10,7 @@
     ],
     "includePlatforms": [
         "Editor",
-        "LinuxStandalone64",
-        "CloudRendering",
-        "WSA",
-        "WebGL",
-        "WindowsStandalone64"
+        "WebGL"
     ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

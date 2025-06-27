@@ -3,7 +3,7 @@ using FishNet.Connection;
 using FishNet.Managing.Scened;
 using UnityEngine.SceneManagement;
 
-namespace MainHub.Modules.WelwiseSharedModule.Runtime.Server.Scripts
+namespace WelwiseSharedModule.Runtime.Server.Scripts
 {
     public class ServerSceneManagementService
     {
