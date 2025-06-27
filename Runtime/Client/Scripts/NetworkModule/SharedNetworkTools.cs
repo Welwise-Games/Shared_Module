@@ -4,7 +4,7 @@ using FishNet;
 using FishNet.Connection;
 using UnityEngine;
 
-namespace Modules.WelwiseSharedModule.Runtime.Client.Scripts.NetworkModule
+namespace WelwiseSharedModule.Runtime.Client.Scripts.NetworkModule
 {
     public static class SharedNetworkTools
     {

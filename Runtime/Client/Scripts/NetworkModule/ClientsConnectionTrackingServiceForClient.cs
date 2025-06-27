@@ -3,7 +3,7 @@ using FishNet.Connection;
 using FishNet.Managing.Client;
 using FishNet.Transporting;
 
-namespace Modules.WelwiseSharedModule.Runtime.Client.Scripts.NetworkModule
+namespace WelwiseSharedModule.Runtime.Client.Scripts.NetworkModule
 {
     public class ClientsConnectionTrackingServiceForClient
     {

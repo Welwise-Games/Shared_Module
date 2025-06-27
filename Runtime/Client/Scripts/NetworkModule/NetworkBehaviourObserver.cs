@@ -2,7 +2,7 @@ using System;
 using FishNet.Connection;
 using FishNet.Object;
 
-namespace Modules.WelwiseSharedModule.Runtime.Client.Scripts.NetworkModule
+namespace WelwiseSharedModule.Runtime.Client.Scripts.NetworkModule
 {
     public class NetworkBehaviourObserver : NetworkBehaviour
     {
