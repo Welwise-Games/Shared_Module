@@ -11,18 +11,26 @@ namespace WelwiseSharedModule.Runtime.Client.Scripts.AnimationEventSystem
         private readonly List<AnimationActionInfo> _animationActionsInfo;
         private readonly int _targetAnimationHash;
 
-        public AnimationsActionsInvoker(AnimatorStateObserver animatorStateObserver, List<AnimationActionInfo> animationActionsInfo, int targetAnimationHash)
+        private bool _plusVibe;
+
+        public AnimationsActionsInvoker(AnimatorStateObserver animatorStateObserver,
+            List<AnimationActionInfo> animationActionsInfo, int targetAnimationHash, bool plusVibe = false)
         {
             _animationActionsInfo = animationActionsInfo;
             _targetAnimationHash = targetAnimationHash;
+            _plusVibe = plusVibe;
             MakeAreNotInvokedAnimationActionsInfo(_targetAnimationHash);
-            
+
             animatorStateObserver.ExitedState += MakeAreNotInvokedAnimationActionsInfo;
+            animatorStateObserver.StartedState += MakeAreNotInvokedAnimationActionsInfo;
             animatorStateObserver.UpdatedState += TryInvokingAnimationsActions;
         }
 
         private void MakeAreNotInvokedAnimationActionsInfo(int hash)
         {
+            if (_plusVibe)
+                Debug.Log(hash == _targetAnimationHash);
+            
             if (_targetAnimationHash == hash)
                 _animationActionsInfo.ForEach(info => info.IsInvoked = false);
         }
@@ -31,14 +39,16 @@ namespace WelwiseSharedModule.Runtime.Client.Scripts.AnimationEventSystem
         {
             if (animatorStateInfo.shortNameHash != _targetAnimationHash) return;
 
-            var pastAnimationTime = animatorStateInfo.length * animatorStateInfo.normalizedTime;
+            var normalizedTime = animatorStateInfo.normalizedTime == 1 ? 1 : animatorStateInfo.normalizedTime % 1;
+
+            var pastAnimationTime = animatorStateInfo.length * normalizedTime;
             
-            _animationActionsInfo.Where(info => !info.IsInvoked && pastAnimationTime >= info.StartTimeFunc.Invoke()).
-                ForEach(info =>
-            {
-                info.IsInvoked = true;
-                info.Action?.Invoke();
-            });
+            _animationActionsInfo.Where(info => !info.IsInvoked && pastAnimationTime >= info.StartTimeFunc.Invoke())
+                .ForEach(info =>
+                {
+                    info.IsInvoked = true;
+                    info.Action?.Invoke();
+                });
         }
     }
 }
