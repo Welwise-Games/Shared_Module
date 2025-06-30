@@ -1,12 +1,11 @@
-﻿using Cysharp.Threading.Tasks;
-using DG.Tweening;
+﻿using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using TMPro;
 using UnityEngine;
+#if WELWISE_SHARED_MODULE_LOCALIZATION
 using WelwiseSharedModule.Runtime.Client.Scripts.Localization;
-using WelwiseSharedModule.Runtime.Shared.Scripts;
-using WelwiseSharedModule.Runtime.Shared.Scripts.Tools;
+#endif
 
 namespace WelwiseSharedModule.Runtime.Client.Scripts.UI
 {
@@ -22,18 +21,22 @@ namespace WelwiseSharedModule.Runtime.Client.Scripts.UI
             _text = text;
             _config = config;
             _defaultColor = text.color;
-            
+
             ChangeTextColor(GetDefaultColorWithZeroTransparency());
         }
 
         public async void SetTextAndStartAnimationAsync(string localizationKey, string tableName = null)
         {
+#if WELWISE_SHARED_MODULE_LOCALIZATION
             ChangeText(tableName != null
                 ? await LocalizationTools.GetLocalizedStringAsync(tableName, localizationKey)
                 : localizationKey);
+#else
+            ChangeText(localizationKey);
+#endif
 
             Debug.Log($"{localizationKey}");
-            
+
             StartAnimation();
         }
 
@@ -56,7 +59,8 @@ namespace WelwiseSharedModule.Runtime.Client.Scripts.UI
 
         private void ChangeTextColor(Color color) => _text.color = color;
 
-        private Color GetDefaultColorWithZeroTransparency() => new(_defaultColor.r, _defaultColor.g, _defaultColor.b, 0);
+        private Color GetDefaultColorWithZeroTransparency() =>
+            new(_defaultColor.r, _defaultColor.g, _defaultColor.b, 0);
 
         private void Animate()
         {
