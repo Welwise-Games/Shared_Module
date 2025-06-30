@@ -8,4 +8,5 @@
 
 <b>Опционально</b><br>
 Чтобы включить соответствующие части модуля, добавьте scripting define symbols в Project Settings -> Player -> Other Settings -> Script Compilation:
-SERVER, WELWISE_SHARED_MODULE_LOCALIZATION (требуется пакет юнити-локализации), WELWISE_SHARED_MODULE_UI, WELWISE_SHARED_MODULE_CLIENT_NETWORK (требуется установить пакет https://github.com/FirstGearGames/FishNet.git?path=Assets/FishNet)
+SERVER<br>WELWISE_SHARED_MODULE_LOCALIZATION (требуется пакет Package Manager -> Add package by name -> Вставьте com.unity.localization)<br>WELWISE_SHARED_MODULE_UI (требуется установить пакет assetstore.unity.com/packages/tools/animation/dotween-hotween-v2-27676, перезапустить юнити, появится панель - нужно нажать Open Panel и Add amsdef) и 
+Package Manager -> Add package by name -> Вставьте com.unity.textmeshpro)<br>WELWISE_SHARED_MODULE_CLIENT_NETWORK (требуется установить пакет https://github.com/FirstGearGames/FishNet.git?path=Assets/FishNet)
