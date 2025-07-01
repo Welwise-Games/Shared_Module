@@ -11,14 +11,11 @@ namespace WelwiseSharedModule.Runtime.Client.Scripts.AnimationEventSystem
         private readonly List<AnimationActionInfo> _animationActionsInfo;
         private readonly int _targetAnimationHash;
 
-        private bool _plusVibe;
-
         public AnimationsActionsInvoker(AnimatorStateObserver animatorStateObserver,
-            List<AnimationActionInfo> animationActionsInfo, int targetAnimationHash, bool plusVibe = false)
+            List<AnimationActionInfo> animationActionsInfo, int targetAnimationHash)
         {
             _animationActionsInfo = animationActionsInfo;
             _targetAnimationHash = targetAnimationHash;
-            _plusVibe = plusVibe;
             MakeAreNotInvokedAnimationActionsInfo(_targetAnimationHash);
 
             animatorStateObserver.ExitedState += MakeAreNotInvokedAnimationActionsInfo;
@@ -28,9 +25,6 @@ namespace WelwiseSharedModule.Runtime.Client.Scripts.AnimationEventSystem
 
         private void MakeAreNotInvokedAnimationActionsInfo(int hash)
         {
-            if (_plusVibe)
-                Debug.Log(hash == _targetAnimationHash);
-            
             if (_targetAnimationHash == hash)
                 _animationActionsInfo.ForEach(info => info.IsInvoked = false);
         }

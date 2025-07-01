@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
-using WelwiseSharedModule.Runtime.Shared.Scripts.AddressablesPart;
+using WelwiseSharedModule.Runtime.Shared.Scripts.Loading;
 using WelwiseSharedModule.Runtime.Shared.Scripts.Observers;
 
 namespace WelwiseSharedModule.Runtime.Client.Scripts.Localization

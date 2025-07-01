@@ -3,36 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.ResourceProviders;
-using WelwiseSharedModule.Runtime.Shared.Scripts.Observers;
 using Object = UnityEngine.Object;
 
-namespace WelwiseSharedModule.Runtime.Shared.Scripts.AddressablesPart
+namespace WelwiseSharedModule.Runtime.Shared.Scripts.Loading
 {
     public static class AssetProvider
     {
         public static async UniTask<GameObject> InstantiateGameObjectByPrefabRotationAsync(string assetId,
+            IAssetLoader assetLoader,
             Vector3 position = default)
         {
-            var prefab = await LoadAsync<GameObject>(assetId);
+            var prefab = await LoadAsync<GameObject>(assetId, assetLoader);
             return Object.Instantiate(prefab, position, prefab.transform.rotation);
         }
-        
-        public static async UniTask<T> InstantiateAsync<T>(string assetId, Vector3? position = null,
+
+        public static async UniTask<T> InstantiateAsync<T>(string assetId, IAssetLoader assetLoader,
+            Vector3? position = null,
             Quaternion? rotation = null, Transform parent = null, bool shouldMakeDontDestroyOnLoad = false,
             Type type = null, string name = null, bool shouldAppointParentAfterInstantiate = false) where T : Object
         {
-            var handle = position.HasValue || rotation.HasValue
-                ? Addressables.InstantiateAsync(assetId, new InstantiationParameters(
-                    position ?? Vector3.zero, rotation ?? Quaternion.identity, shouldAppointParentAfterInstantiate ? null : parent))
-                : Addressables.InstantiateAsync(assetId, shouldAppointParentAfterInstantiate ? null : parent);
+            var spawnParent = shouldAppointParentAfterInstantiate ? null : parent;
 
-            var instance = await handle;
-            
-            if (!instance)
-                throw new NullReferenceException($"Asset as addressable with assetId {assetId} not found");
-            
+            var instance = await assetLoader.GetInstantiatedGameObjectAsync(assetId, position, rotation, spawnParent);
+
             if (shouldAppointParentAfterInstantiate)
                 instance.transform.SetParent(parent);
 
@@ -40,9 +33,6 @@ namespace WelwiseSharedModule.Runtime.Shared.Scripts.AddressablesPart
                 return instance as T;
 
             var targetComponent = instance.GetComponent<T>(type, assetId);
-
-            instance.GetOrAddComponent<DestroyObserver>().Destroyed
-                += () => Addressables.ReleaseInstance(instance);
 
             if (shouldMakeDontDestroyOnLoad)
                 Object.DontDestroyOnLoad(targetComponent);
@@ -59,40 +49,32 @@ namespace WelwiseSharedModule.Runtime.Shared.Scripts.AddressablesPart
             return component ? component : instance.AddComponent<T>();
         }
 
-        public static async UniTask<IEnumerable<T>> LoadAllAsync<T>(string assetLabelId)
-        {
-            var locations = await Addressables.LoadResourceLocationsAsync(assetLabelId, typeof(T)).Task;
-            var tasks = locations.Select(location => Addressables.LoadAssetAsync<T>(location).Task.AsUniTask());
+        public static async UniTask<IEnumerable<T>> LoadAllAsync<T>(string assetLabelId, IAssetLoader assetLoader)
+            where T : Object => await assetLoader.GetLoadedAssetsAsync<T>(assetLabelId);
 
-            return await UniTask.WhenAll(tasks);
-        }
-
-        public static async UniTask<Object> LoadAsync(string assetId, Type type = null)
+        public static async UniTask<Object> LoadAsync(string assetId, IAssetLoader assetLoader, Type type = null)
         {
             if (type == typeof(Sprite))
-                return await LoadAsync<Sprite>(assetId);
+                return await LoadAsync<Sprite>(assetId, assetLoader);
 
-            return await LoadAsync<Object>(assetId, type);
+            return await LoadAsync<Object>(assetId, assetLoader, type);
         }
 
 
-        public static async UniTask<T> LoadAsync<T>(string assetId, Type type = null) where T : Object
+        public static async UniTask<T> LoadAsync<T>(string assetId, IAssetLoader assetLoader, Type type = null)
+            where T : Object
         {
             if (string.IsNullOrEmpty(assetId))
                 return null;
-            
+
             try
             {
                 if (typeof(T).IsSubclassOf(typeof(Component)))
-                    return GetComponent<T>(await Addressables.LoadAssetAsync<GameObject>(assetId).Task,
+                    return GetComponent<T>(await assetLoader.GetLoadedAssetAsync<GameObject>(assetId),
                         type ?? typeof(T),
                         assetId);
 
-                var handle = Addressables.LoadAssetAsync<T>(assetId);
-
-                var @object = await handle.Task;
-                
-                //Addressables.Release(handle);
+                var @object = await assetLoader.GetLoadedAssetAsync<T>(assetId);
 
                 if (!@object)
                     return null;
@@ -139,7 +121,7 @@ namespace WelwiseSharedModule.Runtime.Shared.Scripts.AddressablesPart
                 Debug.LogError(exception);
             }
 
-            return default;
+            return null;
         }
     }
 }

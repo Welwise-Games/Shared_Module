@@ -1,7 +1,8 @@
-﻿using Cysharp.Threading.Tasks;
+﻿#if ADDRESSABLES
+using Cysharp.Threading.Tasks;
 using UnityEngine.AddressableAssets;
 
-namespace WelwiseSharedModule.Runtime.Shared.Scripts.AddressablesPart
+namespace WelwiseSharedModule.Runtime.Shared.Scripts.Loading
 {
     public static class AddressablesTools
     {
@@ -12,3 +13,4 @@ namespace WelwiseSharedModule.Runtime.Shared.Scripts.AddressablesPart
         }
     }
 }
+#endif

@@ -2,13 +2,15 @@ using System;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using WelwiseSharedModule.Runtime.Shared.Scripts.Loading;
 
 namespace WelwiseSharedModule.Runtime.Shared.Scripts.Tools
 {
     public static class ContainerTools
     {
         public static async UniTask<TController> GetControllerAsync<TController, TView>(this Container container,
-            string viewAssetId, Func<TView, UniTask> created,
+            string viewAssetId, IAssetLoader assetLoader,
+            Func<TView, UniTask> created,
             bool shouldMakeDontDestroyOnLoad = false, Transform parent = null)
             where TView : MonoBehaviour where TController : class
         {
@@ -16,7 +18,7 @@ namespace WelwiseSharedModule.Runtime.Shared.Scripts.Tools
             
             if (!viewInstance)
             {
-                await container.GetOrLoadAndRegisterObjectAsync(viewAssetId, created, shouldCreate: true,
+                await container.GetOrLoadAndRegisterObjectAsync(viewAssetId, assetLoader, created, shouldCreate: true,
                     parent: parent, shouldMakeDontDestroyOnLoad: shouldMakeDontDestroyOnLoad);
             }
 

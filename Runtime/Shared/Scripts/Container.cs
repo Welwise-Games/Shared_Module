@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using WelwiseSharedModule.Runtime.Shared.Scripts.AddressablesPart;
+using WelwiseSharedModule.Runtime.Shared.Scripts.Loading;
 using WelwiseSharedModule.Runtime.Shared.Scripts.Tools;
 using Object = UnityEngine.Object;
 
@@ -17,7 +17,8 @@ namespace WelwiseSharedModule.Runtime.Shared.Scripts
         private readonly Dictionary<object, UniTask> _loadingImplementationsByHash = new Dictionary<object, UniTask>();
         private readonly CancellationTokenSource _clearCancellationTokenSource;
 
-        public async UniTask<T> GetOrLoadAndRegisterObjectAsync<T>(string assetId, Func<T, UniTask> loaded = null,
+        public async UniTask<T> GetOrLoadAndRegisterObjectAsync<T>(string assetId, IAssetLoader assetLoader,
+            Func<T, UniTask> loaded = null,
             Func<UniTask> notLoaded = null, bool shouldCreate = true, Transform parent = null,
             bool shouldMakeDontDestroyOnLoad = false,
             Vector3? position = null)
@@ -37,7 +38,7 @@ namespace WelwiseSharedModule.Runtime.Shared.Scripts
                     : await GetSingleByAssetIdAsync<T>(assetId);
             }
 
-            var task = LoadOrInstantiateObjectAsync<T>(assetId, shouldCreate, parent, position);
+            var task = LoadOrInstantiateObjectAsync<T>(assetId, assetLoader, shouldCreate, parent, position);
             
             _loadingImplementationsByHash.Add(assetId, task);
             
@@ -172,10 +173,10 @@ namespace WelwiseSharedModule.Runtime.Shared.Scripts
             return single;
         }
 
-        private async UniTask<T> LoadOrInstantiateObjectAsync<T>(string assetId, bool shouldCreate, Transform parent,
+        private async UniTask<T> LoadOrInstantiateObjectAsync<T>(string assetId, IAssetLoader assetLoader, bool shouldCreate, Transform parent,
             Vector3? position) where T : Object =>
             shouldCreate && (typeof(T).IsSubclassOf(typeof(Component)) || typeof(T) == typeof(GameObject))
-                ? await AssetProvider.InstantiateAsync<T>(assetId, position, parent: parent)
-                : await AssetProvider.LoadAsync<T>(assetId);
+                ? await AssetProvider.InstantiateAsync<T>(assetId, assetLoader, position, parent: parent)
+                : await AssetProvider.LoadAsync<T>(assetId, assetLoader);
     }
 }
