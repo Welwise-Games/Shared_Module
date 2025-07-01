@@ -13,7 +13,7 @@ namespace WelwiseSharedModule.Runtime.Client.Scripts
 #if ADDRESSABLES
         "HeroAudioClipsConfig";
 #else
-        "HeroAudioClipsConfig";
+        "WelwiseHubExampleModule/Runtime/Client/Loadable/Configs/HeroAudioClipsConfig";
 #endif
 
         public HeroAudioClipsProviderService(IAssetLoader assetProvider)

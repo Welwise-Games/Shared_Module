@@ -15,7 +15,7 @@ namespace WelwiseSharedModule.Runtime.Client.Scripts
 #if ADDRESSABLES
         "MainCamera";
 #else
-        "MainCamera";
+        "WelwiseHubExampleModule/Runtime/Client/Loadable/Prefabs/MainCamera";
 #endif
         
         public CameraFactory(IAssetLoader assetLoader)
