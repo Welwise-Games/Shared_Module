@@ -10,31 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Welwise Shared Group
+  m_Name: Welwise Shared Client Module Group
   m_EditorClassIdentifier: 
-  m_GroupName: Welwise Shared Group
+  m_GroupName: Welwise Shared Client Module Group
   m_Data:
     m_SerializedData: []
-  m_GUID: 1ee9c214a2caced4a83fbddebe5e4f96
+  m_GUID: b54548bcfa931794ea929c7c5603e883
   m_SerializeEntries:
-  - m_GUID: b5c168971a5052642b5ada15fe9f0006
-    m_Address: Assets/MainHub/Modules/WelwiseSharedModule/Runtime/Sprites/SharedUI.png
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a9e851e59150cc74f8294c8d259c2e59
-    m_Address: Assets/MainHub/Modules/WelwiseSharedModule/Runtime/Sprites/Wheel BG.png
+  - m_GUID: 389b97eb1ea99f744a689c4ba6ed2a7d
+    m_Address: Onest-Regular
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 79d53a93efeb3774f86d7bc59a15d60c
-    m_Address: Assets/MainHub/Modules/WelwiseSharedModule/Runtime/Fonts/Onest-Regular
-      SDF.asset
+    m_Address: Onest-Regular SDF
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 389b97eb1ea99f744a689c4ba6ed2a7d
-    m_Address: Assets/MainHub/Modules/WelwiseSharedModule/Runtime/Fonts/Onest-Regular.ttf
+  - m_GUID: a9e851e59150cc74f8294c8d259c2e59
+    m_Address: Wheel BG
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b5c168971a5052642b5ada15fe9f0006
+    m_Address: SharedUI
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -42,5 +41,4 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: 237a77756b9c52945863cb194eef1450, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 6a10591f5e3c6c7479d410806d97c5e7, type: 2}
-    - {fileID: 11400000, guid: 8871e8061058f704b9c566f5d6f88681, type: 2}
+    - {fileID: 11400000, guid: 06117afc8a7b6054597fcba43e14d976, type: 2}
