@@ -14,7 +14,7 @@ namespace WelwiseSharedModule.Runtime.Shared.Scripts.Tools
             if (!File.Exists(filePath))
             {
                 Debug.LogError($"File not found at: {filePath}");
-                return null;
+                return new HashSet<string>();
             }
 
             var words = File.ReadAllText(fileName).Split('\n')

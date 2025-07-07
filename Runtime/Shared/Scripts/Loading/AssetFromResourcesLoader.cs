@@ -8,20 +8,39 @@ namespace WelwiseSharedModule.Runtime.Shared.Scripts.Loading
 {
     public class AssetFromResourcesLoader : IAssetLoader
     {
-        public async UniTask<GameObject> GetInstantiatedGameObjectAsync(string assetId, Vector3? position = null, Quaternion? rotation = null,
+        private const float MaxLoadingTime = 5;
+
+        public async UniTask<GameObject> GetInstantiatedGameObjectAsync(string assetId, Vector3? position = null,
+            Quaternion? rotation = null,
             Transform parent = null)
         {
-            var instance = UnityEngine.Object.Instantiate(await Resources.LoadAsync(assetId),
-                position ?? Vector3.zero,
-                rotation ?? Quaternion.identity, parent) as GameObject;
+            var asset = await Resources.LoadAsync(assetId);
 
-            if (!instance)
+            if (asset == null)
                 throw new NullReferenceException($"Asset as resources with path {assetId} not found");
+
+            var instance = position.HasValue || rotation.HasValue
+                ? UnityEngine.Object.Instantiate(asset,
+                    position ?? Vector3.zero,
+                    rotation ?? Quaternion.identity, parent) as GameObject
+                : Object.Instantiate(asset, parent) as GameObject;
 
             return instance;
         }
 
-        public async UniTask<T> GetLoadedAssetAsync<T>(string assetId) where T : Object => await Resources.LoadAsync(assetId) as T;
+        public async UniTask<T> GetLoadedAssetAsync<T>(string assetId) where T : Object
+        {
+            var request = Resources.LoadAsync(assetId);
+
+            var timer = new Timer();
+
+            timer.Ended += () => throw new Exception($"Asset is not loaded under id {assetId}");
+            timer.TryStartingCountingTime(MaxLoadingTime);
+
+            request.completed += _ => timer.TryStoppingCountingTime();
+
+            return await request as T;
+        }
 
         public async UniTask<IEnumerable<T>> GetLoadedAssetsAsync<T>(string labelOrFolderPath) where T : Object
         {
