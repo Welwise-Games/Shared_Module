@@ -20,7 +20,7 @@ namespace WelwiseSharedModule.Runtime.Shared.Scripts.Tools
         public static T GetRandomOrDefault<T>(this IEnumerable<T> enumerable) =>
             enumerable.ElementAtOrDefault(Random.Range(0, enumerable.Count()));
 
-        public static List<T> ToList<T>() where T : Enum => Enum.GetValues(typeof(T)).Cast<T>().ToList();
+        public static List<T> ParseEnumToList<T>() where T : Enum => Enum.GetValues(typeof(T)).Cast<T>().ToList();
 
         public static T SafeGet<T>(this List<T> list, int index) where T : class => index < 0 || index >= list.Count ? null : list[index];
         public static T SafeGet<T>(this IReadOnlyList<T> list, int index) where T : class => index < 0 || index >= list.Count ? null : list[index];

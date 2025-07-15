@@ -2,7 +2,7 @@
 
 namespace WelwiseSharedModule.Runtime.Client.Scripts.Tools
 {
-    public static class CursorSwitcherTools
+    public static class CursorSwitchTools
     {
         public static bool IsCursorEnabled = true;
 
