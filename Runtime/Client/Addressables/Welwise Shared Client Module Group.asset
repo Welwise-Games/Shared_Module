@@ -15,7 +15,7 @@ MonoBehaviour:
   m_GroupName: Welwise Shared Client Module Group
   m_Data:
     m_SerializedData: []
-  m_GUID: 10c3a964746fa584e94b6144da36e139
+  m_GUID: b085bacad909b0b4485d61dc05c92c3c
   m_SerializeEntries:
   - m_GUID: 389b97eb1ea99f744a689c4ba6ed2a7d
     m_Address: Onest-Regular
@@ -41,4 +41,4 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: 237a77756b9c52945863cb194eef1450, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 042a78edd8b97944bace1bcd33637f8c, type: 2}
+    - {fileID: 11400000, guid: 2feba37a624223740aff865e37e9d0e5, type: 2}
