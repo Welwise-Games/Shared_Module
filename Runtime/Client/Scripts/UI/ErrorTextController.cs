@@ -36,13 +36,14 @@ namespace WelwiseSharedModule.Runtime.Client.Scripts.UI
 #endif
 
             Debug.Log($"{localizationKey}");
-
-            StartAnimation();
+            
+            SetSiblingIndexAndStartAnimation();
         }
 
-        private void StartAnimation()
+        private void SetSiblingIndexAndStartAnimation()
         {
             StopAnimation();
+            _text.transform.SetAsLastSibling();
             ChangeTextColor(_defaultColor);
             Animate();
         }
