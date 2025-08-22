@@ -91,6 +91,7 @@ namespace WelwiseSharedModule.Runtime.Shared.Scripts.Tools
         }
 
         public static T GetRandom<T>(this List<T> list) => list[Random.Range(0, list.Count)];
+        public static T GetRandom<T>(this T[] array) => array[Random.Range(0, array.Length)];
 
         public static Dictionary<TKey, TValue> Zip<TKey, TValue>(this List<TKey> list, List<TValue> otherList) =>
             list.Zip(otherList, (k, v) => new { k, v }).ToDictionary(x => x.k, x => x.v);
