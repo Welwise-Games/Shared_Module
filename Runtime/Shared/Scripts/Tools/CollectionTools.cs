@@ -9,6 +9,16 @@ namespace WelwiseSharedModule.Runtime.Shared.Scripts.Tools
     {
         public static bool UseAsChanceAndGetResult(this float chance) => Random.Range(0f, 100f) <= chance;
 
+        public static int GetMissingValueBetweenMinAndMaxOrMaxPlusOne(this int[] integers)
+        {
+            var maxId = integers.Length == 0 ? 0 : integers.Max() + 1;
+
+            return Enumerable.Range(0, maxId + 1)
+                .Except(integers)
+                .DefaultIfEmpty(maxId + 1)
+                .First();
+        }
+
         public static bool CustomSequenceEqual<T>(this IReadOnlyList<T> list1, IReadOnlyList<T> list2,
             Func<T, T, bool> equalFunc)
         {
