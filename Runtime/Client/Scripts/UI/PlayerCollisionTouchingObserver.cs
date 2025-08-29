@@ -8,9 +8,12 @@ namespace WelwiseSharedModule.Runtime.Client.Scripts.UI
     {
         public event Action<RaycastHit> Touched;
 
+        private readonly PhysicsScene _physicsScene;
+
         public PlayerCollisionTouchingObserver(MonoBehaviourObserver monoBehaviourObserver, Camera camera,
-            float rayLength, LayerMask mask)
+            float rayLength, LayerMask mask, PhysicsScene physicsScene)
         {
+            _physicsScene = physicsScene;
             void RayCast() => TryRayCastAndInvokeAction(camera, rayLength, mask);
 
             monoBehaviourObserver.Updated += RayCast;
@@ -23,8 +26,8 @@ namespace WelwiseSharedModule.Runtime.Client.Scripts.UI
                 return;
 
             var ray = camera.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(ray, out var hit, rayLength, layerMask))
+            
+            if (_physicsScene.Raycast(ray.origin, ray.direction, out var hit, rayLength, layerMask))
                 Touched?.Invoke(hit);
         }
     }

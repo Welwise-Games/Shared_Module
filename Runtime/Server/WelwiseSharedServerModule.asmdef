@@ -3,7 +3,8 @@
     "rootNamespace": "",
     "references": [
         "WelwiseSharedSharedModule",
-        "FishNet.Runtime"
+        "FishNet.Runtime",
+        "WelwiseHubExampleSharedModule"
     ],
     "includePlatforms": [
         "Editor",

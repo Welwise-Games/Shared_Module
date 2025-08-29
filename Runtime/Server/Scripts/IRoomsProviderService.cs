@@ -7,7 +7,10 @@ namespace WelwiseSharedModule.Runtime.Server.Scripts
     public interface IRoomsProviderService
     {
         IReadOnlyDictionary<NetworkConnection, IRoom> RoomsByConnectedClientsNetworkConnections { get; }
-        event Action<IRoom> RoomRemoved, RoomCreated;
-        event Action<NetworkConnection, IRoom> ClientConnectedToRoom, ClientDisconnectedFromRoom;
+        event Action<IRoom> RemovedRoom, AddedRoom;
+        event Action<NetworkConnection, IRoom> ConnectedClientToRoom, DisconnectedClientFromRoom;
+        void AddRoom(IRoom room);
+        void RemoveRoom(IRoom room);
+        void TryRemovingClientFromRoom(NetworkConnection networkConnection);
     }
 }
