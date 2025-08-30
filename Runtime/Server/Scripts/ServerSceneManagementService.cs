@@ -21,7 +21,7 @@ namespace WelwiseSharedModule.Runtime.Server.Scripts
 
         public SceneLoadData GetNewLoadedStackingScene()
         {
-            var scene = SceneManager.LoadScene(ScenesNames.Hub,
+            var scene = SceneManager.LoadScene(ScenesNames.Game,
                 new LoadSceneParameters(LoadSceneMode.Additive, LocalPhysicsMode.Physics3D));
 
             return new SceneLoadData(scene)
