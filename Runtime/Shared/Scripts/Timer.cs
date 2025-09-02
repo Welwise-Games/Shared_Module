@@ -26,6 +26,8 @@ namespace WelwiseSharedModule.Runtime.Shared.Scripts
 
         private readonly CancellationToken _destroyCancellationToken;
         private CancellationTokenSource _sharedTokenSource;
+        
+        public const float MaxValue = 100000;
 
 
         public Timer(CancellationToken destroyCancellationToken = default)
@@ -49,7 +51,9 @@ namespace WelwiseSharedModule.Runtime.Shared.Scripts
         public void Configure(float appointedTime, float remainingTime)
         {
             TryUpdatingAppointedTime(appointedTime);
+            Debug.Log(_appointedTime);
             TryUpdatingRemainingTime(remainingTime);
+            Debug.Log(_remainingTime);
         }
 
         public void ConfigureAndTryStartingCountingTime(float appointedTime, float remainingTime)
@@ -174,7 +178,7 @@ namespace WelwiseSharedModule.Runtime.Shared.Scripts
 
             while (_remainingTime > 0)
             {
-                await UniTask.WaitForFixedUpdate(_sharedTokenSource.Token);
+                await UniTask.DelayFrame(1, cancellationToken: _sharedTokenSource.Token);
                 
                 if (_remainingTime == 0)
                     break;
@@ -190,10 +194,11 @@ namespace WelwiseSharedModule.Runtime.Shared.Scripts
                 }
 
                 if (IsPause) continue;
-
-                var deltaTime = isScaled ? Time.fixedDeltaTime : Time.fixedUnscaledDeltaTime;
+                
+                var deltaTime = isScaled ? Time.deltaTime : Time.unscaledDeltaTime;
+                
                 _remainingTime = Mathf.Max(_remainingTime - deltaTime, 0);
-
+                
                 if (_lastSecondUpdateTime != (int) _remainingTime)
                 {
                     UpdatedOnStartNextSecond?.Invoke(_remainingTime);

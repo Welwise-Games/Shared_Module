@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using FishNet.Connection;
 using FishNet.Managing.Scened;
+using UnityEngine;
+using WelwiseSharedModule.Runtime.Shared.Scripts.Tools;
 
 namespace WelwiseSharedModule.Runtime.Server.Scripts
 {
@@ -31,7 +33,9 @@ namespace WelwiseSharedModule.Runtime.Server.Scripts
         public void RemoveConnectedClient(NetworkConnection conn)
         {
             if (_connectedClientsNetworkConnections.Remove(conn))
+            {
                 DisconnectedClient?.Invoke(conn);
+            }
         }
     }
 }
