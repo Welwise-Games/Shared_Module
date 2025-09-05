@@ -7,8 +7,6 @@ namespace WelwiseSharedModule.Runtime.Shared.Scripts.Tools
 {
     public static class CollectionTools
     {
-        public static bool UseAsChanceAndGetResult(this float chance) => Random.Range(0f, 100f) <= chance;
-
         public static int GetMissingValueBetweenMinAndMaxOrMaxPlusOne(this int[] integers)
         {
             var maxId = integers.Length == 0 ? 0 : integers.Max() + 1;
@@ -55,7 +53,7 @@ namespace WelwiseSharedModule.Runtime.Shared.Scripts.Tools
 
         public static void RemoveAll<TKey, TValue>(this Dictionary<TKey, TValue> dictionary,
             Func<KeyValuePair<TKey, TValue>, bool> func) =>
-            dictionary.Where(func.Invoke).ForEach(pair => dictionary.Remove(pair.Key));
+            dictionary.Where(func.Invoke).ToArray().ForEach(pair => dictionary.Remove(pair.Key));
 
         public static string ToAggregatedString<T>(this IEnumerable<T> collection) =>
             collection.Aggregate("", (a, b) => a + ", " + b);

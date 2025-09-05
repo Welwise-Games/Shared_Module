@@ -1,10 +1,9 @@
 ﻿using System;
 using FishNet.Connection;
 using FishNet.Managing.Scened;
-using UnityEditor;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 using WelwiseHubExampleModule.Runtime.Shared.Scripts.Holders;
+using Object = UnityEngine.Object;
 using SceneManager = UnityEngine.SceneManagement.SceneManager;
 
 namespace WelwiseSharedModule.Runtime.Server.Scripts
@@ -12,7 +11,7 @@ namespace WelwiseSharedModule.Runtime.Server.Scripts
     public class ServerSceneManagementService
     {
         public event Action<NetworkConnection, Scene> LoadedSceneClient;
-
+        
         public void TryInvokingClientLoadedScene(ClientPresenceChangeEventArgs args)
         {
             if (args.Added)

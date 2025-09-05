@@ -5,6 +5,6 @@ namespace WelwiseSharedModule.Runtime.Server.Scripts
 {
     public interface IVisibleClientsProviderService
     {
-        IReadOnlyCollection<NetworkConnection> GetVisibleClientsForClient(NetworkConnection networkConnection);
+        IReadOnlyCollection<NetworkConnection> GetVisibleClientsForClient(NetworkConnection networkConnection, bool withObserver = false);
     }
 }

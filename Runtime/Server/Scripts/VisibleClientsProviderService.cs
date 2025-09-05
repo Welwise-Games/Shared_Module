@@ -6,10 +6,10 @@ namespace WelwiseSharedModule.Runtime.Server.Scripts
 {
     public class VisibleClientsProviderService : IVisibleClientsProviderService
     {
-        public IReadOnlyCollection<NetworkConnection> GetVisibleClientsForClient(NetworkConnection networkConnection) =>
+        public IReadOnlyCollection<NetworkConnection> GetVisibleClientsForClient(NetworkConnection networkConnection, bool withObserver) =>
             _roomsProviderService.RoomsByConnectedClientsNetworkConnections.GetValueOrDefault(networkConnection)
                 ?.ConnectedClientsNetworkConnections
-                .Where(connection => connection != networkConnection).ToHashSet();
+                .Where(connection => withObserver || connection != networkConnection).ToHashSet();
 
         private readonly IRoomsProviderService _roomsProviderService;
 

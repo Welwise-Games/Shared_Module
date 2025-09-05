@@ -2,6 +2,6 @@
 {
     public interface IOwnerPlayerMovementStateProvider
     {
-        bool IsEnabled { get; set; }
+        bool IsMovementEnabled { get; set; }
     }
 }
