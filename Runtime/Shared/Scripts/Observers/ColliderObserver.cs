@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace WelwiseSharedModule.Runtime.Shared.Scripts.Observers
 {
@@ -36,7 +37,7 @@ namespace WelwiseSharedModule.Runtime.Shared.Scripts.Observers
             Entered?.Invoke(other);
         }
 
-        private void OnExit(Collider other)
+        public void OnExit(Collider other)
         {
             _enteredColliders.Remove(other);
             Exited?.Invoke(other);

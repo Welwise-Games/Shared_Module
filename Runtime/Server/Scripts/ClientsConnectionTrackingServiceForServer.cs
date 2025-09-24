@@ -12,10 +12,7 @@ namespace WelwiseSharedModule.Runtime.Server.Scripts
         public void TryInvokeActionByConnectionState(NetworkConnection conn, RemoteConnectionStateArgs args)
         {
             if (args.ConnectionId == -1)
-            {
-                Debug.Log("EXX");
                 return;
-            }
             
             if (args.ConnectionState == RemoteConnectionState.Started)
                 Connected?.Invoke(conn);
